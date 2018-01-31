@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <category label="32000">
+    <setting label="32001" id="host" type="ipaddress"/>
+    <setting label="32002" type="lsep"/>
+    <setting label="32003" id="path_from" type="text" default=""/>
+    <setting label="32004" id="path_to" type="text" default=""/>
+  </category>
+</settings>
