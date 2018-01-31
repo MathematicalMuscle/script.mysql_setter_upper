@@ -37,7 +37,8 @@ def jsonrpc(params, method='Addons.ExecuteAddon', addonid='script.kodi_setter_up
 
 
 if __name__ == '__main__':
-    opts = ["Modify 'advancedsettings.xml'",
+    opts = ["Add path substitution to 'advancedsettings.xml'",
+            "Modify 'advancedsettings.xml'",
             "Remove 'advancedsettings.xml'"]
 
     select = xbmcgui.Dialog().select('Kodi Setter-Upper', opts, 0)
@@ -54,9 +55,6 @@ if __name__ == '__main__':
                 xbmcaddon.Addon('script.mysql_setter_upper').setSetting('host', '')
                 host = 'localhost'
                 
-            path_from = xbmcaddon.Addon('script.mysql_setter_upper').getSetting('path_from')
-            path_to = xbmcaddon.Addon('script.mysql_setter_upper').getSetting('path_to')
-            
             response = jsonrpc({'ksu_class': 'AdvancedSetting', 'id': 'musicdatabase.type', 'value': 'mysql'})
             response = jsonrpc({'ksu_class': 'AdvancedSetting', 'id': 'musicdatabase.host', 'value': host})
             response = jsonrpc({'ksu_class': 'AdvancedSetting', 'id': 'musicdatabase.port', 'value': '3306'})
@@ -72,7 +70,11 @@ if __name__ == '__main__':
             response = jsonrpc({'ksu_class': 'AdvancedSetting', 'id': 'videolibrary.importwatchedstate', 'value': 'true'})
             response = jsonrpc({'ksu_class': 'AdvancedSetting', 'id': 'videolibrary.importresumepoint', 'value': 'true'})
             
-            if path_from and path_to:
+        if selection in ["Add path substitution to 'advancedsettings.xml'", "Modify 'advancedsettings.xml'"]:
+            path_from = xbmcaddon.Addon('script.mysql_setter_upper').getSetting('path_from')
+            path_to = xbmcaddon.Addon('script.mysql_setter_upper').getSetting('path_to')
+            
+            if path_from and path_to and path_from != path_to:
                 jsonrpc({'ksu_class': 'AdvancedSetting', 'id': 'pathsubstitution.substitute.from', 'value': path_from})
                 jsonrpc({'ksu_class': 'AdvancedSetting', 'id': 'pathsubstitution.substitute.to', 'value': path_to})
 
